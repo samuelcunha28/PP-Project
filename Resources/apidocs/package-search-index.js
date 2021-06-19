@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"edu.maen.core.enumerations"},{"l":"edu.maen.core.exceptions"},{"l":"edu.maen.core.interfaces"},{"l":"edu.maen.dashboards"},{"l":"edu.maen.io.interfaces"}];updateSearchResults();
