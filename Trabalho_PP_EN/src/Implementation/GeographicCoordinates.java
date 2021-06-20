@@ -17,12 +17,6 @@ public class GeographicCoordinates implements IGeographicCoordinates {
      * The longitude coordinate
      */
     private double longitude;
-
-    /**
-     * Constructor of GeoCoordinates
-     * @param latitude The geo coordinates latitude.
-     * @param longitude The geo coordinates longitude.
-     */
     
     /**
      * Constructor of GeographicCoordinates
