@@ -2,6 +2,7 @@ package Implementation;
 
 import edu.maen.core.enumerations.WasteType;
 import edu.maen.core.interfaces.IContainer;
+import java.util.Objects;
 
 /*
 * Nome: <Samuel Luciano Correia da Cunha>
@@ -68,6 +69,37 @@ public class Container implements IContainer {
         this.type = type;
     }
     
-    // FALTA EQUALS e toString
+    /**
+     * To String method representing the Container.
+     * @return String with all the information about the container.
+     */
+    @Override
+    public String toString() {
+        return "CODE: " + this.code + "\nCAPACITY: " + this.capacity + 
+                "\nCONTAINER WASTE TYPE: " + this.type; 
+    }
     
+    /**
+     * Compares two Containers.
+     *
+     * @param container container to be compared
+     * @return true if container is equal to the container code.
+     */
+    @Override
+    public boolean equals(Object container) {
+        if (this == container) {
+            return true;
+        }
+        if (container == null) {
+            return false;
+        }
+        if (getClass() != container.getClass()) {
+            return false;
+        }
+        final Container other = (Container) container;
+        if (!Objects.equals(this.code, other.code)) {
+            return false;
+        }
+        return true;
+    }
 }
