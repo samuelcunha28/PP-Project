@@ -72,7 +72,7 @@ public class GeographicCoordinates implements IGeographicCoordinates {
     }
     
     /**
-     * Compares latitude and longitude coordinates.
+     * Compares latitude and longitude coordinates
      * @param coordinates object to be compared
      * @return if coordinates is equal to the both latitude or longitude coordinates.
      */
