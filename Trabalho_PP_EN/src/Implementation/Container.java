@@ -46,25 +46,44 @@ public class Container implements IContainer {
         return this.code;
     }
 
+    /**
+     * Setter for container code
+     * @param code the container code
+     */
     public void setCode(String code) {
         this.code = code;
     }
     
-
+    /**
+     * Getter for container capacity (in KG)
+     * @return the container capacity
+     */
     @Override
     public double getCapacity() {
         return this.capacity;
     }
     
+    /**
+     * Setter for container capacity (in KG)
+     * @param capacity the container capacity
+     */
     public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
-
+    
+    /**
+     * Getter for the waste type that container supports
+     * @return the waste type associated with the container
+     */
     @Override
     public WasteType getType() {
         return this.type;
     }
     
+    /**
+     * Setter for the waste type that container supports
+     * @param type the waste type
+     */
     public void setType(WasteType type) {
         this.type = type;
     }
