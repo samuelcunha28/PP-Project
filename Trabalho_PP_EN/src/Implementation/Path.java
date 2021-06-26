@@ -2,6 +2,7 @@ package Implementation;
 
 import edu.maen.core.interfaces.IPath;
 import edu.maen.core.interfaces.IRecyclingBin;
+import java.util.Objects;
 
 /*
 * Nome: <Samuel Luciano Correia da Cunha>
@@ -99,4 +100,27 @@ public class Path implements IPath {
                 "\nDURATION: " + this.duration; 
     }
     
+    /**
+     * Compares two Paths.
+     *
+     * @param path path to be compared
+     * @return true if path is equal to the path destination.
+     */
+    @Override
+    public boolean equals(Object path) {
+        if (this == path) {
+            return true;
+        }
+        if (path == null) {
+            return false;
+        }
+        if (getClass() != path.getClass()) {
+            return false;
+        }
+        final Path other = (Path) path;
+        if (!Objects.equals(this.to, other.to)) {
+            return false;
+        }
+        return true;
+    }
 }
