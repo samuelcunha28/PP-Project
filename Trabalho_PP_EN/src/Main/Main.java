@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
+import IO.Exporter;
+import Implementation.City;
 import Implementation.Container;
 import Implementation.GeographicCoordinates;
 import Implementation.Measurement;
@@ -13,7 +10,12 @@ import Implementation.RecyclingBin;
 import edu.maen.core.enumerations.WasteType;
 import edu.maen.core.exceptions.ContainerException;
 import edu.maen.core.exceptions.RecyclingBinException;
+import edu.maen.dashboards.Dashboard;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 /**
  *
@@ -24,7 +26,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ContainerException, RecyclingBinException {
+    public static void main(String[] args) throws ContainerException, RecyclingBinException, IOException {
         //------------------------- GEOGRAPHIC COORDINATES ---------------------
         GeographicCoordinates coord1 = new GeographicCoordinates(5.0, 5.0);
         GeographicCoordinates coord2 = new GeographicCoordinates(10.0, 5.0);
@@ -46,7 +48,7 @@ public class Main {
         System.out.println(bin1);
         System.out.println("");
 
-        RecyclingBin bin2 = new RecyclingBin("2", "Felgueiras", "Perto do LIDL", "P", coord2);
+        RecyclingBin bin2 = new RecyclingBin("2", "Felgueiras", "Perto do LIDL", "V", coord2);
         System.out.println("BIN 2");
         System.out.println(bin2);
         System.out.println("");
@@ -100,5 +102,15 @@ public class Main {
         // MANIPULATION PATHS
         System.out.println("ADDED PATH1 TO BIN 1");
         bin1.addPath(path1);
+        
+        //------------------------- CITIES -------------------------------------
+        City city1 = new City("Porto");
+        city1.addRecyclingBin(bin1);
+        city1.addRecyclingBin(bin2);
+        
+        Exporter exporter = new Exporter(city1, "City1.json");
+        exporter.export();
+        // Dashboard.render("ecopontos.json");
+        
     }
 }

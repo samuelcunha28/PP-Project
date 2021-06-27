@@ -22,6 +22,8 @@ public class Measurement implements IMeasurement {
      */
     private IContainer container;
     
+    private Container[] containers;
+    
     /**
      * The recycling bin being measured
      */
@@ -51,6 +53,7 @@ public class Measurement implements IMeasurement {
         this.recyclingBin = recyclingBin;
         this.date = date;
         this.value = value;
+        this.containers = new Container[10];
     }
     
     /**
@@ -77,6 +80,10 @@ public class Measurement implements IMeasurement {
     @Override
     public IContainer getContainer() {
         return this.container;
+    }
+    
+    public Container[] getContainers() {
+        return this.containers;
     }
     
     /**
