@@ -39,18 +39,6 @@ public class Importer implements IImporter {
             
             JSONArray jsonObject = (JSONArray) obj;
             
-            /*
-            String id;
-            long date;
-            Double value;
-            String unit;
-            String address = "";
-            Double x;
-            Double y;
-            Double z;
-            Double lat;
-            Double lng;
-            */
             String Codigo;
             String ref;
             String zona;
@@ -81,19 +69,16 @@ public class Importer implements IImporter {
                 GeographicCoordinates coord1 = new GeographicCoordinates(latitude, longitude);
                 RecyclingBin bin1 = new RecyclingBin(Codigo, zona, ref, null, coord1);
                 icity.addRecyclingBin(bin1);
-                city.addSensor(address, id, new CartesianCoordinates(x, y, z), new GeographicCoordinates(lat, lng));
-                city.addMeasurement(address, id, value, unit, localDateTime);
+                
             }     
             
-        } catch (ParseException | StationException | SensorException | MeasurementException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(Importer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CityException e) {
             System.out.println(e.toString());
         } catch (RecyclingBinException ex) {
             Logger.getLogger(Importer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new InputOutputStatistics(city);
-        
+        }        
     }   
 
     @Override

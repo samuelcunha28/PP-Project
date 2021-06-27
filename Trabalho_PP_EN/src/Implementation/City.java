@@ -175,4 +175,12 @@ public class City implements ICity {
         }
         return copyMeasurements;
     }
+    
+    /**
+     * Returns the number of registered measurements
+     * @return the number of registered measurements
+     */
+    public IMeasurement[] getNumMeasurements() {
+        return this.measurements;
+    }
 }

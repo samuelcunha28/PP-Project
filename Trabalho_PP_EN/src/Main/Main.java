@@ -1,6 +1,7 @@
 package Main;
 
 import IO.Exporter;
+import IO.InputOutputStatistics;
 import Implementation.City;
 import Implementation.Container;
 import Implementation.GeographicCoordinates;
@@ -110,7 +111,11 @@ public class Main {
         
         Exporter exporter = new Exporter(city1, "City1.json");
         exporter.export();
-        // Dashboard.render("ecopontos.json");
+        Dashboard.render("City1.json");
+        
+        //--------------------------- IOSTATISTICS -----------------------------
+        InputOutputStatistics io1 = new InputOutputStatistics(city1); 
+        System.out.println(io1);
         
     }
 }
