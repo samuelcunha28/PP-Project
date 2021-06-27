@@ -1,10 +1,9 @@
 package IO;
 
-import Implementation.RecyclingBin;
+import Implementation.Measurement;
 import edu.maen.core.interfaces.ICity;
-import edu.maen.core.interfaces.IContainer;
 import edu.maen.core.interfaces.IMeasurement;
-import edu.maen.core.interfaces.IRecyclingBin;
+import edu.maen.core.interfaces.IPath;
 import edu.maen.io.interfaces.IExporter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,7 +56,7 @@ public class Exporter implements IExporter {
     }
 
     /**
-     * Exports the data do a JSON file
+     * Exports the data to a JSON file
      *
      * @return "Done" when finished
      * @throws IOException if there was an Input/Output error
@@ -82,7 +81,7 @@ public class Exporter implements IExporter {
         JSONArray obj = new JSONArray();
         JSONObject write = new JSONObject();
         JSONObject cont = new JSONObject();
-        
+
         for (int i = 0; i < city.getRecyclingBin().length; i++) {
             if (city.getRecyclingBin()[i] != null) {
 
@@ -94,11 +93,10 @@ public class Exporter implements IExporter {
                         write.put("Zona", city.getRecyclingBin()[i].getZone());
                         write.put("Latitude", city.getRecyclingBin()[i].getCoordinates().getLatitude());
                         write.put("Longitude", city.getRecyclingBin()[i].getCoordinates().getLongitude());
-                        
 
                         cont.put("codigo", city.getRecyclingBin()[i].getContainers()[j].getCode());
                         cont.put("capacidade", city.getRecyclingBin()[i].getContainers()[j].getCapacity());
-                        
+
                         write.put("Contentores", cont);
                         obj.add(write);
                     }

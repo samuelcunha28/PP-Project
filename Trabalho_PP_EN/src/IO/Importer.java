@@ -1,19 +1,17 @@
 package IO;
 
+import Implementation.City;
 import Implementation.GeographicCoordinates;
 import Implementation.RecyclingBin;
 import edu.maen.core.exceptions.CityException;
 import edu.maen.core.exceptions.RecyclingBinException;
 import edu.maen.core.interfaces.ICity;
-import edu.maen.core.interfaces.IRecyclingBin;
 import edu.maen.io.interfaces.IImporter;
 import edu.maen.io.interfaces.IOStatistics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -26,7 +24,25 @@ import org.json.simple.parser.ParseException;
 * Número: <8160526>
  */
 public class Importer implements IImporter {
+    
+    private InputOutputStatistics io;
+    
+    private static FileWriter file;
+    
+    private City city;
 
+    public Importer(City city) {
+        this.city = city;
+    }
+    
+    /**
+     * Reads the input JSON file
+     * @param icity the city which the file data will be read
+     * @param filePath the file path
+     * @throws FileNotFoundException if file is not found 
+     * @throws IOException if the file cannot be read
+     * @throws CityException if the city is null
+     */
     @Override
     public void importData(ICity icity, String filePath) throws FileNotFoundException, IOException, CityException {
         try {
@@ -69,7 +85,6 @@ public class Importer implements IImporter {
                 GeographicCoordinates coord1 = new GeographicCoordinates(latitude, longitude);
                 RecyclingBin bin1 = new RecyclingBin(Codigo, zona, ref, null, coord1);
                 icity.addRecyclingBin(bin1);
-                
             }     
             
         } catch (ParseException ex) {
@@ -80,15 +95,69 @@ public class Importer implements IImporter {
             Logger.getLogger(Importer.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }   
-
+    
+    /**
+     * Return the import statistics 
+     * @return the statistics
+     */
     @Override
     public IOStatistics getStats() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.io;
     }
 
+    /**
+     * Stores the statistics in a JSON file
+     * @param filePath the file path
+     * @throws IOException 
+     */
     @Override
-    public void report(String string) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void report(String filePath) throws IOException {
+        int countM = 0;
+        int countC = 0;
+        int countB = 0;
+        JSONObject write = new JSONObject();
+        JSONArray obj = new JSONArray();
+        
+        for (int i = 0; i < this.city.getNumMeasurements().length; i++) {
+            if (this.city.getRecyclingBin()[i] != null) {
+                countM++;
+                write.put("Number of measurements", countM);
+            }
+        }
+        
+        for (int i = 0; i < city.getRecyclingBin().length; i++) {
+            if (city.getRecyclingBin()[i] != null) {
+                countB++;
+                write.put("Number of bins", countB);
+
+                for (int j = 0; j < city.getRecyclingBin()[i].getContainers().length; j++) {
+                    if (city.getRecyclingBin()[i].getContainers()[j] != null) {
+                        countC++;
+                        write.put("Number of containers", countC);
+                    }
+                }
+            }
+        }
+        obj.add(write);
+        
+        try {
+            // Constructs a FileWriter given a file name, using the platform's default charset
+            file = new FileWriter(filePath);
+            file.write(obj.toJSONString());
+            System.out.println("Successfully Copied JSON Object to File...");
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+ 
+        } finally {
+ 
+            try {
+                file.flush();
+                file.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
-    
 }

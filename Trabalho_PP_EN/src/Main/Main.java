@@ -1,6 +1,7 @@
 package Main;
 
 import IO.Exporter;
+import IO.Importer;
 import IO.InputOutputStatistics;
 import Implementation.City;
 import Implementation.Container;
@@ -11,22 +12,14 @@ import Implementation.RecyclingBin;
 import edu.maen.core.enumerations.WasteType;
 import edu.maen.core.exceptions.ContainerException;
 import edu.maen.core.exceptions.RecyclingBinException;
-import edu.maen.dashboards.Dashboard;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
-/**
- *
- * @author samue
+/*
+* Nome: <Samuel Luciano Correia da Cunha>
+* Número: <8160526>
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws ContainerException, RecyclingBinException, IOException {
         //------------------------- GEOGRAPHIC COORDINATES ---------------------
         GeographicCoordinates coord1 = new GeographicCoordinates(5.0, 5.0);
@@ -106,16 +99,34 @@ public class Main {
         
         //------------------------- CITIES -------------------------------------
         City city1 = new City("Porto");
+        
+        // MANIPULATION CITIES
         city1.addRecyclingBin(bin1);
         city1.addRecyclingBin(bin2);
         
+        // city1.removeRecyclingBin(0);
+        // city1.removeRecyclingBin2(bin1);
+        
+        
+        System.out.println("AQUI AQUI");
+        for (int i = 0; i < city1.getRecyclingBin().length; i++) {
+            if (city1.getRecyclingBin()[i] != null) {
+                System.out.println(city1.getRecyclingBin()[i].toString());
+
+            }
+        }
+        
+        //-------------------------- EXPORTER ----------------------------------
         Exporter exporter = new Exporter(city1, "City1.json");
         exporter.export();
-        Dashboard.render("City1.json");
+        // Dashboard.render("City1.json");
+        
+        //-------------------------- IMPORTER ----------------------------------
+        Importer importer = new Importer(city1);
+        importer.report("C:\\Users\\samue\\Desktop\\Study\\Paradigmas\\Trabalho pratico\\PP-Project\\Trabalho_PP_EN\\statistics.txt");
         
         //--------------------------- IOSTATISTICS -----------------------------
         InputOutputStatistics io1 = new InputOutputStatistics(city1); 
         System.out.println(io1);
-        
     }
 }

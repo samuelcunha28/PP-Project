@@ -1,7 +1,6 @@
 package IO;
 
 import Implementation.City;
-import edu.maen.core.interfaces.ICity;
 import edu.maen.io.interfaces.IOStatistics;
 
 
@@ -23,8 +22,6 @@ public class InputOutputStatistics implements IOStatistics {
         this.city = city;
         this.exceptions = new String[EXCEPTIONS_SIZE];
     }
-    
-    
 
     /**
      * Returns the number of read measurements
@@ -93,9 +90,9 @@ public class InputOutputStatistics implements IOStatistics {
     
     
     /**
-     * To String method representing the RecyclingBin.
+     * To String method representing all data for statistics.
      *
-     * @return String with all the information about the recycling bin.
+     * @return String with all the information for statistics.
      */
     @Override
     public String toString() {

@@ -28,8 +28,6 @@ public class City implements ICity {
      */
     private int numberOfMeasurements;
 
-    private int numberOfRecyclingBins;
-
     /**
      * The city name
      */
@@ -108,6 +106,55 @@ public class City implements ICity {
         }
         return false;
     }
+    
+    /**
+     * Method to remove a recycling bin from de city
+     * @param position the position to be removed
+     * @return the removed position
+     */
+    public IRecyclingBin removeRecyclingBin(int position) {
+        if (position < bins.length && position != -1) {
+            if (bins[position] == null) {
+                System.out.println("Objeto não existe");
+                return null;
+            } else {
+                Object delete = bins[position];
+                bins[position] = null;
+                for (int i = position; i < (count - 1); i++) {
+                    bins[i] = bins[i + 1];
+                }
+                count -= 1;
+                bins[count] = null;
+                return (IRecyclingBin) delete;
+            }
+        } else {
+            System.out.println("Posição Inexistente");
+            return null;
+        }
+    }
+    
+    /**
+     * Method to remove a recycling bin from de city
+     * @param bin the bin to be removed
+     * @return the removed bin
+     */
+    public boolean removeRecyclingBin2(IRecyclingBin bin) throws ExceptionRecyclingBin {
+        if (bin == null) {
+            throw new ExceptionRecyclingBin("The parameter is null");
+        }
+
+        for (int i = 0; i < this.count; ++i) {
+            if (this.bins[i].equals(bin)) {
+                for (; i < this.count - 1; i++) {
+                    this.bins[i] = this.bins[i + 1];
+                }
+                this.bins[i] = null;
+                this.count--;
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Adds a new measurement to the city considering the recycling bin and
@@ -150,8 +197,7 @@ public class City implements ICity {
      */
     @Override
     public IRecyclingBin[] getRecyclingBin() {
-        return this.bins;
-        
+        return this.bins;   
     }
 
     /**
